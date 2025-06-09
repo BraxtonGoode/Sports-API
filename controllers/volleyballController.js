@@ -29,6 +29,47 @@ const getTeamById = async (req, res) => {
   }
 };
 
+const createTeam = async (req, res) => {
+  const team = {
+    teamName: req.body.teamName,
+    overallScore: req.body.overallScore,
+    streak: req.body.streak,
+    location: req.body.location,
+    playerCount: req.body.playerCount,
+    coach: req.body.coach,
+    colors: req.body.colors
+  };
+
+  const response = await mongodb.getDatabase().collection('teams').insertOne(team);
+
+  if (response.acknowledged) {
+    res.status(204).send();
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while creating the volleyball team.');
+  }
+};
+
+const updateTeam = async (req, res) => {
+  const teamId = new ObjectId(req.params.id);
+  const team = {
+    teamName: req.body.teamName,
+    overallScore: req.body.overallScore,
+    streak: req.body.streak,
+    location: req.body.location,
+    playerCount: req.body.playerCount,
+    coach: req.body.coach,
+    colors: req.body.colors 
+  };
+
+  const response = await mongodb.getDatabase().collection('teams').replaceOne({ _id: teamId }, team);
+
+  if (response.modifiedCount > 0) {
+    res.status(204).send();
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while updating the volleyball team.');
+  }
+};
+
 const deleteTeam = async (req, res) => {
   try {
     const teamId = new objectId(req.params.id);
@@ -49,5 +90,7 @@ const deleteTeam = async (req, res) => {
 module.exports = {
   getAllTeams,
   getTeamById,
+  createTeam,
+  updateTeam,
   deleteTeam,
 };
