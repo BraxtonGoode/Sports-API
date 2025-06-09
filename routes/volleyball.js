@@ -12,7 +12,7 @@ router.get(
     #swagger.responses[200] = {
       description: 'A list of volleyball teams.'
     }
-    #swagger.responses[500] = {
+    #swagger.responses[400] = {
       description: 'Internal server error.'
     }
   */

@@ -31,8 +31,11 @@
           "200": {
             "description": "A list of volleyball teams."
           },
-          "500": {
+          "400": {
             "description": "Internal server error."
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -257,7 +260,7 @@
           "200": {
             "description": "A list of soccer teams."
           },
-          "500": {
+          "400": {
             "description": "Internal server error."
           }
         }
@@ -341,9 +344,6 @@
           },
           "412": {
             "description": "Precondition Failed"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -372,9 +372,6 @@
           },
           "404": {
             "description": "Team not found."
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -464,9 +461,6 @@
           },
           "412": {
             "description": "Precondition Failed"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -493,9 +487,6 @@
           },
           "404": {
             "description": "Team not found."
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
