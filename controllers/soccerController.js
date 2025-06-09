@@ -3,12 +3,12 @@ const objectId = require('mongodb').ObjectId;
 
 const getAllTeams = async (req, res) => {
   try {
-    const db = await mongoDb.getDb().collection('Volleyball').find();
-    const VolleyballTeams = await db.toArray();
+    const db = await mongoDb.getDb().collection('Soccer').find();
+    const SoccerTeams = await db.toArray();
     res.header('Content-Type', 'application/json');
-    res.status(200).json(VolleyballTeams);
+    res.status(200).json(SoccerTeams);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching teams', error });
+    res.status(400).json({ message: 'Error fetching teams', error });
   }
 };
 
@@ -17,7 +17,7 @@ const getTeamById = async (req, res) => {
     const teamId = new objectId(req.params.id);
     const db = await mongoDb
       .getDb()
-      .collection('Volleyball')
+      .collection('Soccer')
       .findOne({ _id: teamId });
     if (!db) {
       return res.status(404).json({ message: 'Team not found' });
@@ -25,7 +25,7 @@ const getTeamById = async (req, res) => {
     res.header('Content-Type', 'application/json');
     res.status(200).json(db);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching team', error });
+    res.status(400).json({ message: 'Error fetching team', error });
   }
 };
 
@@ -43,12 +43,12 @@ const createTeam = async (req, res) => {
 
     const response = await mongoDb
       .getDb()
-      .collection('Volleyball')
+      .collection('Soccer')
       .insertOne(team);
     res.header('Content-Type', 'application/json');
-    res.status(201).json({ response, message: 'Team created successfully' });
+    res.status(200).json({ response, message: 'Team created successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error creating team', error });
+    res.status(400).json({ message: 'Error creating team', error });
   }
 };
 
@@ -67,12 +67,12 @@ const updateTeam = async (req, res) => {
 
     const response = await mongoDb
       .getDb()
-      .collection('Volleyball')
+      .collection('Soccer')
       .replaceOne({ _id: teamId }, team);
     res.header('Content-Type', 'application/json');
     res.status(200).json({ response, message: 'Team updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error updating team', error });
+    res.status(400).json({ message: 'Error updating team', error });
   }
 };
 
@@ -81,7 +81,7 @@ const deleteTeam = async (req, res) => {
     const teamId = new objectId(req.params.id);
     const db = await mongoDb
       .getDb()
-      .collection('Volleyball')
+      .collection('Soccer')
       .deleteOne({ _id: teamId });
     if (db.deletedCount === 0) {
       return res.status(404).json({ message: 'Team not found' });
@@ -89,7 +89,7 @@ const deleteTeam = async (req, res) => {
     res.header('Content-Type', 'application/json');
     res.status(200).json({ message: 'Team deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting team', error });
+    res.status(400).json({ message: 'Error deleting team', error });
   }
 };
 

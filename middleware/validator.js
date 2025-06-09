@@ -1,14 +1,14 @@
-const validator = require('../helpers/validate');
+const validator = require('../helpers/validate.js');
 const { ObjectId } = require('mongodb');
 
 const saveTeam = (req, res, next) => {
   const validationRule = {
-    teamName: 'required|string',
-    overallScore: 'required|string',
+    name: 'required|string',
+    record: 'required|string',
     streak: 'required|integer',
     location: 'required|string',
-    playerCount: 'required|integer',
-    coach: 'required|string',
+    players: 'required|integer',
+    headCoach: 'required|string',
     colors: 'required|string',
   };
   

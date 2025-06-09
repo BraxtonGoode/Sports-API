@@ -1,3 +1,4 @@
+const mongoDb = require('./DB/connect.js');
 const express = require('express');
 const cors = require('cors');
 
@@ -14,6 +15,17 @@ app.use(express.json());
 app.use('/', require('./routes'));
 
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+mongoDb.initDb((err) => {
+  if (err) {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1);
+  } else {
+    console.log('Connected to the database successfully');
+    
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Server is running on http://localhost:${port}`);
     });
+  }
+});
+
