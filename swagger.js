@@ -2,12 +2,22 @@ const swaggerAutogen = require('swagger-autogen')();
 
 
 const doc = {
-    inf: {
+    info: {
         title: 'Sports API',
         description: 'API for managing sports data',
     },
     host: 'localhost:3000',
     schemes: ['http'],
+    tags: [
+        {
+            name: 'Volleyball',
+            description: 'Operations related to volleyball teams',
+        },
+        {
+            name: 'Soccer',
+            description: 'Operations related to soccer teams',
+        }
+    ]
 
     }
 const outputFile = './swagger_output.json';
