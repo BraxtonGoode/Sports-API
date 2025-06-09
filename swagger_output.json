@@ -285,39 +285,27 @@
                 },
                 "record": {
                   "type": "string",
-                  "example": "10-3-1"
+                  "example": "12-2-2"
                 },
                 "location": {
                   "type": "string",
-                  "example": "City, State"
+                  "example": "Updated City, State"
                 },
                 "players": {
-                  "type": "array",
-                  "example": [
-                    "Player A",
-                    "Player B"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "number",
+                  "example": 23
                 },
                 "colors": {
-                  "type": "array",
-                  "example": [
-                    "Blue",
-                    "White"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string",
+                  "example": "Red, Black"
                 },
                 "headCoach": {
                   "type": "string",
-                  "example": "Coach X"
+                  "example": "Updated Coach Y"
                 },
                 "streak": {
-                  "type": "string",
-                  "example": "W2"
+                  "type": "number",
+                  "example": 3
                 }
               },
               "required": [
@@ -409,32 +397,20 @@
                   "example": "Updated City, State"
                 },
                 "players": {
-                  "type": "array",
-                  "example": [
-                    "Updated Player A",
-                    "Updated Player B"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "number",
+                  "example": 23
                 },
                 "colors": {
-                  "type": "array",
-                  "example": [
-                    "Red",
-                    "Black"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string",
+                  "example": "Red, Black"
                 },
                 "headCoach": {
                   "type": "string",
                   "example": "Updated Coach Y"
                 },
                 "streak": {
-                  "type": "string",
-                  "example": "L1"
+                  "type": "number",
+                  "example": 3
                 }
               },
               "required": [

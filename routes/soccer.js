@@ -55,12 +55,12 @@ router.post(
       required: true,
       schema: {
         $name: 'Team Name',
-        $record: '10-3-1',
-        $location: 'City, State',
-        $players: ['Player A', 'Player B'],
-        $colors: ['Blue', 'White'],
-        $headCoach: 'Coach X',
-        $streak: 'W2'
+        $record: '12-2-2',
+        $location: 'Updated City, State',
+        $players: 23,
+        $colors: 'Red, Black',
+        $headCoach: 'Updated Coach Y',
+        $streak: 3
       }
     }
     #swagger.responses[201] = {
@@ -95,10 +95,10 @@ router.put(
         $name: 'Updated Team Name',
         $record: '12-2-2',
         $location: 'Updated City, State',
-        $players: ['Updated Player A', 'Updated Player B'],
-        $colors: ['Red', 'Black'],
+        $players: 23,
+        $colors: 'Red, Black',
         $headCoach: 'Updated Coach Y',
-        $streak: 'L1'
+        $streak: 3
       }
     }
     #swagger.responses[200] = {
