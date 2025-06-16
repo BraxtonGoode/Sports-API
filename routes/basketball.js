@@ -5,7 +5,7 @@ const express = require('express').Router();
 const basketballController = require('../controllers/basketball');
 
 
-const { isAuthenticated } = require('../middleware/auth'); 
+const { isAuthenticated } = require('../middleware/validator'); 
 
 
 const { validateBasketballTeamCreation,  validateBasketballTeamUpdate } = require('../middleware/validate'); 

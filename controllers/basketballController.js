@@ -11,9 +11,7 @@ const getAllTeams = async (req, res) => {
    res.header('Content-Type', 'application/json');     
    res.status(200).json(basketballTeams); 
   } catch (error) {
-   
-    console.error('Error fetching all Basketball teams:', error);
-    res.status(500).json({ message: 'Error fetching Basketball teams', error: error.message || error });
+   res.status(500).json({ message: 'Error fetching Basketball teams', error: error.message || error });
   }
 };
 
@@ -121,7 +119,7 @@ const updateTeam = async (req, res) => {
     res.header('Content-Type', 'application/json');
     res.status(200).json({ message: 'Basketball team updated successfully', modifiedCount: response.modifiedCount });
   } catch (error) {
-    console.error('Error updating Basketball team:', error);
+   
     res.status(500).json({ message: 'Error updating Basketball team', error: error.message || error });
   }
 };
