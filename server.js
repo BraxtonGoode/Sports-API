@@ -7,6 +7,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const userController = require('./controllers/userController.js');
 require('dotenv').config();
 
+const { apiLimiter, strictLimiter } = require('./middleware/rateLimit');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -20,6 +21,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(apiLimiter);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
