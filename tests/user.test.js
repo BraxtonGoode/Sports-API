@@ -1,7 +1,7 @@
-// tests/basketball.test.js
+// tests/user.test.js
 const request = require('supertest');
 const express = require('express');
-const basketballRoutes = require('../routes/basketball');
+const userRoutes = require('../routes/user');
 const mongoDb = require('../DB/connect');
 const { ObjectId } = require('mongodb');
 
@@ -13,29 +13,23 @@ jest.mock('../DB/connect', () => ({
 // Create Express app instance for testing
 const app = express();
 app.use(express.json());
-app.use('/basketball', basketballRoutes);
+app.use('/user', userRoutes);
 
-describe('Basketball GET Endpoints', () => {
+describe('user GET Endpoints', () => {
   const mockTeams = [
     {
       _id: new ObjectId('64b1f2c2c3a71f1b7c2f0d13'),
-      name: 'Test Team 1',
-      record: '10-5',
-      location: 'City, State',
-      players: 12,
-      colors: 'Red, White',
-      headCoach: 'Coach One',
-      streak: 3,
+      firstName: 'John',
+      lastName: 'Doe',
+      position: 'Admin',
+      username: 'JohnDoe',
     },
     {
       _id: new ObjectId('64b1f2c2c3a71f1b7c2f0d14'),
-      name: 'Test Team 2',
-      record: '8-7',
-      location: 'Another City, State',
-      players: 15,
-      colors: 'Blue, Black',
-      headCoach: 'Coach Two',
-      streak: -1,
+      firstName: 'Braxton',
+      lastName: 'Goode',
+      position: 'member',
+      username: 'BraxtonGoode',
     },
   ];
 
@@ -56,33 +50,35 @@ describe('Basketball GET Endpoints', () => {
     });
   });
 
-  test('GET /basketball - should return all basketball teams', async () => {
-    const res = await request(app).get('/basketball');
+  test('GET /user - should return all users', async () => {
+    const res = await request(app).get('/user');
     expect(res.statusCode).toBe(200);
     expect(res.body.length).toBe(2);
-    expect(res.body[0].name).toBe('Test Team 1');
+    expect(res.body[0].firstName).toBe('John');
+    expect(res.body[1].username).toBe('BraxtonGoode');
   });
 
-  test('GET /basketball/:id - valid ID returns a team', async () => {
-    const res = await request(app).get('/basketball/64b1f2c2c3a71f1b7c2f0d13');
+  test('GET /user/:id - valid ID returns a user', async () => {
+    const res = await request(app).get('/user/64b1f2c2c3a71f1b7c2f0d13');
     expect(res.statusCode).toBe(200);
-    expect(res.body.name).toBe('Test Team 1');
+    expect(res.body.firstName).toBe('John');
+    expect(res.body.username).toBe('JohnDoe');
   });
 
-  test('GET /basketball/:id - invalid ID returns 404', async () => {
-    const nonExistentId = new ObjectId().toString();
-    const res = await request(app).get(`/basketball/${nonExistentId}`);
+  test('GET /user/:id - non-existent ID returns 404', async () => {
+    const nonExistentId = new ObjectId().toString(); // valid format but not in mock data
+    const res = await request(app).get(`/user/${nonExistentId}`);
     expect(res.statusCode).toBe(404);
     expect(res.body.message).toMatch(/not found/i);
   });
 
-  test('GET /basketball - handles internal server error', async () => {
+  test('GET /user - handles internal server error', async () => {
     mongoDb.getDb.mockImplementationOnce(() => {
       throw new Error('DB error');
     });
 
-    const res = await request(app).get('/basketball');
-    expect(res.statusCode).toBe(500); // or 400 depending on your controller
+    const res = await request(app).get('/user');
+    expect(res.statusCode).toBe(400); // matches your controller's error status
     expect(res.body.message).toMatch(/error/i);
   });
 });

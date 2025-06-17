@@ -1,7 +1,7 @@
-// tests/basketball.test.js
+// tests/volleyball.test.js
 const request = require('supertest');
 const express = require('express');
-const basketballRoutes = require('../routes/basketball');
+const volleyballRoutes = require('../routes/volleyball');
 const mongoDb = require('../DB/connect');
 const { ObjectId } = require('mongodb');
 
@@ -13,9 +13,9 @@ jest.mock('../DB/connect', () => ({
 // Create Express app instance for testing
 const app = express();
 app.use(express.json());
-app.use('/basketball', basketballRoutes);
+app.use('/volleyball', volleyballRoutes);
 
-describe('Basketball GET Endpoints', () => {
+describe('Volleyball GET Endpoints', () => {
   const mockTeams = [
     {
       _id: new ObjectId('64b1f2c2c3a71f1b7c2f0d13'),
@@ -35,7 +35,7 @@ describe('Basketball GET Endpoints', () => {
       players: 15,
       colors: 'Blue, Black',
       headCoach: 'Coach Two',
-      streak: -1,
+      streak: 0,
     },
   ];
 
@@ -56,33 +56,33 @@ describe('Basketball GET Endpoints', () => {
     });
   });
 
-  test('GET /basketball - should return all basketball teams', async () => {
-    const res = await request(app).get('/basketball');
+  test('GET /volleyball - should return all volleyball teams', async () => {
+    const res = await request(app).get('/volleyball');
     expect(res.statusCode).toBe(200);
     expect(res.body.length).toBe(2);
     expect(res.body[0].name).toBe('Test Team 1');
   });
 
-  test('GET /basketball/:id - valid ID returns a team', async () => {
-    const res = await request(app).get('/basketball/64b1f2c2c3a71f1b7c2f0d13');
+  test('GET /volleyball/:id - valid ID returns a team', async () => {
+    const res = await request(app).get('/volleyball/64b1f2c2c3a71f1b7c2f0d13');
     expect(res.statusCode).toBe(200);
     expect(res.body.name).toBe('Test Team 1');
   });
 
-  test('GET /basketball/:id - invalid ID returns 404', async () => {
+  test('GET /volleyball/:id - invalid ID returns 404', async () => {
     const nonExistentId = new ObjectId().toString();
-    const res = await request(app).get(`/basketball/${nonExistentId}`);
+    const res = await request(app).get(`/volleyball/${nonExistentId}`);
     expect(res.statusCode).toBe(404);
     expect(res.body.message).toMatch(/not found/i);
   });
 
-  test('GET /basketball - handles internal server error', async () => {
+  test('GET /volleyball - handles internal server error', async () => {
     mongoDb.getDb.mockImplementationOnce(() => {
       throw new Error('DB error');
     });
 
-    const res = await request(app).get('/basketball');
-    expect(res.statusCode).toBe(500); // or 400 depending on your controller
+    const res = await request(app).get('/volleyball');
+    expect(res.statusCode).toBe(400); // or 400 depending on your controller
     expect(res.body.message).toMatch(/error/i);
   });
 });

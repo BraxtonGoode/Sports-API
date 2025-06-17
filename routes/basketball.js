@@ -1,69 +1,69 @@
 const express = require('express');
 const router = express.Router();
-const soccerController = require('../controllers/soccerController.js');
+const BasketballController = require('../controllers/basketballController.js');
 const { saveTeam, validateId } = require('../middleware/validator');
 const { isAuthenticated, checkAuthenticated } = require('../middleware/authenticated.js');
 
-/// GET all soccer teams
+// GET all Basketball teams
 router.get(
   '/',
   /* 
-    #swagger.tags = ['Soccer']
-    #swagger.description = 'Retrieve all soccer teams'
+    #swagger.tags = ['Basketball']
+    #swagger.description = 'Retrieve all Basketball teams'
     #swagger.responses[200] = {
-      description: 'A list of soccer teams.'
+      description: 'A list of Basketball teams.'
     }
     #swagger.responses[400] = {
       description: 'Internal server error.'
     }
   */
-  soccerController.getAllTeams
+  BasketballController.getAllTeams
 );
 
-// GET a single soccer team by ID
+// GET a single Basketball team by ID
 router.get(
   '/:id',
   validateId,
   /* 
-    #swagger.tags = ['Soccer']
-    #swagger.description = 'Retrieve a single soccer team by ID'
+    #swagger.tags = ['Basketball']
+    #swagger.description = 'Retrieve a Basketball team by ID'
     #swagger.parameters['id'] = {
       in: 'path',
-      description: 'ID of the soccer team',
+      description: 'ID of the Basketball team',
       required: true,
       type: 'string'
     }
     #swagger.responses[200] = {
-      description: 'Soccer team found.'
+      description: 'Basketball team found.'
     }
     #swagger.responses[404] = {
       description: 'Team not found.'
     }
   */
-  soccerController.getTeamById
+  BasketballController.getTeamById
 );
 
-// POST a new soccer team
+// POST a new Basketball team
 router.post(
   '/',
   isAuthenticated,
   checkAuthenticated,
   saveTeam,
   /* 
-    #swagger.tags = ['Soccer']
-    #swagger.description = 'Create a new soccer team'
+    #swagger.tags = ['Basketball']
+    #swagger.description = 'Create a new Basketball team'
     #swagger.parameters['body'] = {
       in: 'body',
-      description: 'Soccer team data',
+      description: 'Basketball team data',
       required: true,
       schema: {
         $name: 'Team Name',
-        $record: '12-2-2',
-        $location: 'Updated City, State',
+        $record: '30-2-3',
+        $location: 'New City, State',
         $players: 23,
-        $colors: 'Red, Black',
-        $headCoach: 'Updated Coach Y',
-        $streak: 3
+        $colors: 'Blue, Black',
+        $headCoach: 'New Coach Name',
+        $streak: 2
       }
     }
     #swagger.responses[201] = {
@@ -73,10 +73,10 @@ router.post(
       description: 'Invalid team data.'
     }
   */
-  soccerController.createTeam
+  BasketballController.createTeam
 );
 
-// PUT to update an existing soccer team
+// PUT to update an existing Basketball team
 router.put(
   '/:id',
   validateId,
@@ -84,26 +84,26 @@ router.put(
   checkAuthenticated,
   saveTeam,
   /* 
-    #swagger.tags = ['Soccer']
-    #swagger.description = 'Update an existing soccer team'
+    #swagger.tags = ['Basketball']
+    #swagger.description = 'Update an existing Basketball team'
     #swagger.parameters['id'] = {
       in: 'path',
-      description: 'ID of the soccer team',
+      description: 'ID of the Basketball team',
       required: true,
       type: 'string'
     }
     #swagger.parameters['body'] = {
       in: 'body',
-      description: 'Updated soccer team data',
+      description: 'Updated Basketball team data',
       required: true,
       schema: {
         $name: 'Updated Team Name',
-        $record: '12-2-2',
-        $location: 'Updated City, State',
+        $record: '30-2-3',
+        $location: 'New City, State',
         $players: 23,
-        $colors: 'Red, Black',
-        $headCoach: 'Updated Coach Y',
-        $streak: 3
+        $colors: 'Blue, Black',
+        $headCoach: 'New Coach Name',
+        $streak: 2
       }
     }
     #swagger.responses[200] = {
@@ -113,21 +113,21 @@ router.put(
       description: 'Team not found.'
     }
   */
-  soccerController.updateTeam
+  BasketballController.updateTeam
 );
 
-// DELETE a soccer team
+// DELETE a Basketball team
 router.delete(
   '/:id',
   validateId,
   isAuthenticated,
   checkAuthenticated,
   /* 
-    #swagger.tags = ['Soccer']
-    #swagger.description = 'Delete a soccer team by ID'
+    #swagger.tags = ['Basketball']
+    #swagger.description = 'Delete a Basketball team'
     #swagger.parameters['id'] = {
       in: 'path',
-      description: 'ID of the soccer team',
+      description: 'ID of the Basketball team to delete',
       required: true,
       type: 'string'
     }
@@ -138,7 +138,7 @@ router.delete(
       description: 'Team not found.'
     }
   */
-  soccerController.deleteTeam
+  BasketballController.deleteTeam
 );
 
 module.exports = router;
